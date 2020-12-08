@@ -1,3 +1,8 @@
+
 Nitrogen does not support diatomic ZMATs
 Tried using dummy atom to get 3 or more internal coords (Cartesian coords required normal modes?)
+
+
+For the water molecule, CFOUR and NITROGEN/Psi4 opts and freqs were done. When comparing evecs from CFOUR, they resemble NITROGEN's 'VR (columns norm to 1)' if columns 1 and 3 are swapped.
+Need to compare this to NC_TRANS which should be related by some constant that allows VR x F (some form of VR) to return the frequencies? Check this out.
 
