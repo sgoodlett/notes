@@ -1,0 +1,3 @@
+Nitrogen does not support diatomic ZMATs
+Tried using dummy atom to get 3 or more internal coords (Cartesian coords required normal modes?)
+
