@@ -6,3 +6,24 @@ Tried using dummy atom to get 3 or more internal coords (Cartesian coords requir
 For the water molecule, CFOUR and NITROGEN/Psi4 opts and freqs were done. When comparing evecs from CFOUR, they resemble NITROGEN's 'VR (columns norm to 1)' if columns 1 and 3 are swapped.
 Need to compare this to NC_TRANS which should be related by some constant that allows VR x F (some form of VR) to return the frequencies? Check this out.
 
+'HBAR_UACM' is the reduced Planck's constant in units of amu, Angstrom, cm-1
+
+Frequencies are 'HBAR_UACM * sqrt(fabs(WR[i]))' where WR is the eigenvalues (right) and fabs is the absolute value. Eigenvalues calculated using dgeev_ and vectors are normalized to 1 (Euclidian)
+
+Dec. 9:
+The following code snippet (Python) takes VR and scales it according to Nitrogen's scheme.
+
+for i in range(3):
+    temp = 0
+    for j in range(3):
+        for k in range(3):
+            temp += VR[i,k] * VR[i,j] * F[k,j]
+    temp = abs(temp)
+    temp = np.sqrt(hbar*np.sqrt(abs(e_val[i])) / temp)
+    for j in range(3):
+        VR_new[i,j] *= temp
+
+Where F is the IC Hessian, 3 is the number of IC's, e_val are the eigenvalues of GF (?), VR is the eigenvetor array of GF and VR_new is the scaled array. The VR_new ^-1 ^T is the NC_TRANS (minus the last column, still not sure what this is).
+Strangely, the NC_TRANS and my array are almost the same, but each row is wrong by a varying factor (0.7118892618206242,0.7589099108998686,3.523924861047214).
+These factors are the same up to the 4th decimal place usually. Perhaps I am using the wrong eigenvalues?
+
