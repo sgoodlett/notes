@@ -1,0 +1,21 @@
+\documentclass{article}
+
+\begin{document}
+
+The following is how NITROGEN calculates the NC\_TRANS matrix and how CFOUR can be used to generate the same.
+
+First, we need the F matirx (Hessian). CFOUR's units are in Bohr while NITROGEN uses Angstrom. Therefore, every internal coordinate from FCMINT needs to be scaled accordingly.
+Angles should remain untouched, so each row with a radius needs to be converted as well as each column with a radius.
+I am unsure why, but for the water molecule, row three and column three need to be converted to angstroms in the G matrix.
+
+$L^{-1}GFL = \Lambda$
+
+$L$ and $\Lambda$ are column swapped so that the eigenvalues are sorted in ascending order.
+Then comes a weird chunk of code I found in surf.c (NITROGEN) that scales $L$ so that $L^{-1}FL$ yields the diagonalized $F$ with frequencies along the diagonal.
+See 'NITROGEN' for those notes.
+Then $L^{-1 T}$ yields the left block of NC\_TRANS. The right most column is
+$L^{-1}q$
+Where $q$ is the IC eq. geometry.
+
+
+\end{document}

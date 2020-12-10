@@ -27,3 +27,7 @@ Where F is the IC Hessian, 3 is the number of IC's, e_val are the eigenvalues of
 Strangely, the NC_TRANS and my array are almost the same, but each row is wrong by a varying factor (0.7118892618206242,0.7589099108998686,3.523924861047214).
 These factors are the same up to the 4th decimal place usually. Perhaps I am using the wrong eigenvalues?
 
+
+Dec. 10th
+Updates on Code, see test.py. This code snippet managed to reproduce NITROGEN's NC\_TRANS within numerical error (seemingly).
+
